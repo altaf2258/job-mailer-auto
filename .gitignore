@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.pyc
+job_mailer.db
+sent_history.csv
+uploads/user_*/tailored_resumes/
+uploads/test_*
+test_*.py
+send_*.py
+*.docx
+

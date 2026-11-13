@@ -1,0 +1,50 @@
+services:
+  # Streamlit Web Application Dashboard
+  job-mailer-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: job_mailer_dashboard
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    volumes:
+      # Persistent SQLite database across container rebuilds
+      - ./job_mailer.db:/app/job_mailer.db
+      # Persistent candidate uploaded resumes
+      - ./uploads:/app/uploads
+      # Optional: bind .env file for secrets
+      - ./.env:/app/.env
+    environment:
+      - TZ=UTC
+      - PYTHONUNBUFFERED=1
+    networks:
+      - job-mailer-net
+
+  # Automated Background Cron Worker (Scheduler & Dispatcher)
+  job-mailer-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: job_mailer_worker
+    restart: unless-stopped
+    # Runs the continuous timing slot and 3-day follow-up daemon
+    command: ["python", "cron_worker.py", "--daemon"]
+    volumes:
+      # Shares the exact same SQLite database
+      - ./job_mailer.db:/app/job_mailer.db
+      # Shares candidate resumes for attachment
+      - ./uploads:/app/uploads
+      - ./.env:/app/.env
+    environment:
+      - TZ=UTC
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - job-mailer-ui
+    networks:
+      - job-mailer-net
+
+networks:
+  job-mailer-net:
+    driver: bridge
+

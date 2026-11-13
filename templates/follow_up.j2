@@ -1,0 +1,13 @@
+Hi {{ contact_name or 'Team' }},
+
+I wanted to quickly follow up on my note from last week regarding the {{ role }} opening at {{ company }}.
+
+I remain very interested in the role and would welcome the opportunity to discuss how my full-stack background across React, Angular, and Node.js can support your current engineering roadmaps.
+
+Would you be open to a brief 10-minute introductory call this week?
+
+Best regards,
+{{ candidate.full_name or candidate.name or 'Job Applicant' }}
+{% if candidate.phone %}{{ candidate.phone }}{% endif %}
+{% if candidate.linkedin %}{{ candidate.linkedin }}{% endif %}
+

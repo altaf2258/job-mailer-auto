@@ -1,0 +1,47 @@
+# Candidate & Cold Outreach Configuration
+
+candidate:
+  name: "Nazim Khan"
+  phone: "+91 6367134982"
+  linkedin: "https://linkedin.com/in/nazim-khan-a64116256"
+  resume_file: "Nazim_Khan_FullStack_Resume.pdf"
+  years_experience: 4
+  primary_title: "Full-Stack Developer / SDE-2"
+
+search:
+  roles:
+    - "Full Stack Developer"
+    - "Frontend Developer"
+    - "Backend Developer"
+    - "SDE-2 Node.js"
+    - "Angular React Developer"
+  cities:
+    - "Udaipur"
+    - "Jaipur"
+    - "Ahmedabad"
+    - "Indore"
+    - "Pune"
+    - "Mumbai"
+    - "Bangalore"
+
+rules:
+  excluded_companies:
+    - "webanix software solution"
+    - "webanix"
+    - "idea2reality"
+    - "green cap media"
+    - "interface design studio"
+  excluded_domains:
+    - "tempmail.com"
+    - "10minutemail.com"
+
+mailer:
+  min_delay_secs: 45
+  max_delay_secs: 80
+  default_slot_limit: 10
+  # Hour-of-day slots: 10 AM (10 leads), 2 PM (10 leads), 5 PM (5 leads)
+  slots:
+    10: { name: "10:00 AM Slot", limit: 10 }
+    14: { name: "2:00 PM Slot", limit: 10 }
+    17: { name: "5:00 PM Slot", limit: 5 }
+
